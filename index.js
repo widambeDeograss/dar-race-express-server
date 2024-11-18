@@ -61,8 +61,8 @@ const transporter = nodemailer.createTransport({
 // Routes
 app.post('/api/register', async (req, res) => {
   try {
-    // const registration = new Registration(req.body);
-    // await registration.save();
+    const registration = new Registration(req.body);
+    await registration.save();
 
     // Send confirmation email
     const mailOptions = {
