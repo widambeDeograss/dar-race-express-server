@@ -7,8 +7,14 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://dar-time-trials-dragrace.vercel.app',
+    'http://localhost:3000'  // for local development
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // MongoDB connection
