@@ -6,14 +6,9 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
-
 app.use(cors({
-  origin: [
-    'https://dar-time-trials-dragrace.vercel.app',
-    'http://localhost:3000'  // for local development
-  ],
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: 'https://dar-time-trials-dragrace.vercel.app', // Allow only this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
 }));
 app.use(express.json());
 
