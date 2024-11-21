@@ -7,10 +7,7 @@ require('dotenv').config();
 import serverless from "serverless-http";
 
 const app = express();
-app.use(cors({
-  origin: 'https://dar-time-trials-dragrace.vercel.app', // Allow only this origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-}));
+app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
