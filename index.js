@@ -12,7 +12,8 @@ const app = express();
 app.use(cors({
   origin: '*', // Be more specific in production
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
 app.use(express.json());
