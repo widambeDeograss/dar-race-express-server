@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-import serverless from "serverless-http";
+const https = require('https');
+const fs = require('fs');
+const express = require('express');
 
 const app = express();
 app.use(cors());
@@ -15,6 +17,11 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+const options = {
+  key: fs.readFileSync('/root/certs/server.key'),
+  cert: fs.readFileSync('/root/certs/server.crt')
+};
 
 // Registration Schema
 const registrationSchema = new mongoose.Schema({
@@ -47,8 +54,8 @@ const Registration = mongoose.model('Registration', registrationSchema);
 
 // Email configuration
 const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
+    service: "smtp",
+    host: "smtp.hostinger.com",
     port: 587,
     secure: true,
   auth: {
@@ -102,8 +109,11 @@ app.get('/api/registrations', async (req, res) => {
     res.status(500).json({ message: 'Error fetching registrations' });
   }
 });
-export const handler = serverless(app);
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-   console.log(`Server running on port ${PORT}`);
+// app.listen(PORT, '0.0.0.0', () => {
+//    console.log(`Server running on port ${PORT}`);
+// });
+https.createServer(options, app).listen(5000, '0.0.0.0', () => {
+  console.log('HTTPS server running on IP 143.198.212.191:5000');
 });
