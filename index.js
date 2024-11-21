@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+import serverless from "serverless-http";
 
 const app = express();
 app.use(cors({
@@ -104,7 +105,7 @@ app.get('/api/registrations', async (req, res) => {
     res.status(500).json({ message: 'Error fetching registrations' });
   }
 });
-
+export const handler = serverless(app);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
    console.log(`Server running on port ${PORT}`);
