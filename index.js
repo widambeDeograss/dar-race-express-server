@@ -8,7 +8,13 @@ const https = require('https');
 const fs = require('fs');
 
 const app = express();
-app.use(cors());
+// CORS configuration
+app.use(cors({
+  origin: '*', // Be more specific in production
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // MongoDB connection
